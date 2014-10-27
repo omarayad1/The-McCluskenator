@@ -1,11 +1,11 @@
 {
   "generator-backbone": {
     "appPath": "app",
-    "appName": "MccluskyFrontend",
+    "appName": "Mccluskyfrontend",
     "coffee": true,
     "testFramework": "mocha",
     "templateFramework": "lodash",
     "compassBootstrap": true,
-    "includeRequireJS": true
+    "includeRequireJS": false
   }
 }

@@ -1,19 +1,12 @@
-#/*global require*/
-'use strict'
+window.Mccluskyfrontend =
+  Models: {}
+  Collections: {}
+  Views: {}
+  Routers: {}
+  init: ->
+    'use strict'
+    console.log 'Hello from Backbone!'
 
-require.config
-  shim: {
-    bootstrap:
-      deps: ['jquery'],
-      exports: 'jquery'
-  }
-  paths:
-    jquery: '../bower_components/jquery/dist/jquery'
-    backbone: '../bower_components/backbone/backbone'
-    underscore: '../bower_components/lodash/dist/lodash'
-    bootstrap: '../bower_components/sass-bootstrap/dist/js/bootstrap'
-
-require [
-  'backbone'
-], (Backbone) ->
-  Backbone.history.start()
+$ ->
+  'use strict'
+  Mccluskyfrontend.init();

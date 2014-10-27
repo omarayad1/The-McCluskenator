@@ -20,7 +20,7 @@
     "smarttabs": true,
     "jquery": true,
     "globals": {
-        "MccluskyFrontend": true,
+        "Mccluskyfrontend": true,
         "mccluskyfrontend": true,
         "_": false,
         "Backbone": false,
@@ -30,8 +30,6 @@
         "it": false,
         "assert": true,
         "expect": true,
-        "should": true,
-        "require": false,
-        "define": false
+        "should": true
     }
 }
