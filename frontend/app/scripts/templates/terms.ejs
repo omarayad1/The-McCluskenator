@@ -1,16 +1,23 @@
 <div class="jumbotron">
-	<h1>Enter MIN/MAX Terms and don't cares</h1>
-	<div class="radio">
-	  <label>
-	    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-	    Min Terms
-	  </label>
+	<h2>Enter MIN/MAX Terms and don't cares</h2>
+	<div class="min-max-container">
+		<div class="radio">
+		  <label>
+		    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+		    Min Terms
+		  </label>
+		</div>
+		<div class="radio">
+		  <label>
+		    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+			Max Terms
+		  </label>
+		</div>
 	</div>
-	<div class="radio">
-	  <label>
-	    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-		Max Terms
-	  </label>
-	</div>
-	<p><a class="btn btn-lg btn-success" href="#/truth">Next</a></p>
+	<br />
+		<div class="terms-block">
+			<li>$$\sum{m(}$$</li><li><input name="tags" id="terms" /></li><li>$$) + d($$</li><li><input name="tags" id="cares" /></li><li>$$)$$</li>
+		</div>
+	<p><a class="btn btn-lg btn-success terms-next" href="#/truth">Next</a></p>
 </div>
+

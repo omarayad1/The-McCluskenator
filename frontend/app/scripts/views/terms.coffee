@@ -10,8 +10,12 @@ class Mccluskyfrontend.Views.Terms extends Backbone.View
 
   className: ''
 
-  events: {}
+  events: {
+    'click button.terms-next'
+  }
   
   render: () ->
     @$el.html @template()
+    $('#terms').tagsInput()
+    $('#cares').tagsInput()
     @

@@ -16,7 +16,9 @@ body {
     padding-bottom: 20px;
 }
 .backbone-container {
+    min-width: 100%;
     padding-top: 20%;
+    margin-left: 0px;
 }
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
@@ -52,6 +54,8 @@ body {
 
 /* Main marketing message and sign up button */
 .jumbotron {
+    margin-left: 0px;
+    min-width: 100% !important;
     text-align: center;
     border-bottom: 1px solid #e5e5e5;
 }
@@ -72,9 +76,6 @@ body {
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-    .container {
-        max-width: 730px;
-    }
 
     /* Remove the padding we set earlier */
     .header,
@@ -89,6 +90,44 @@ body {
     }
     /* Remove the bottom border on the jumbotron for visual effect */
     .jumbotron {
+        min-width: 100%;
         border-bottom: 0;
     }
+}
+.min-max-container {
+    margin-top: 50px;
+    div {
+        float: left;
+        width: 10%;
+        margin: 1em;
+    }
+}
+.radio {
+    margin-top: 0px !important;
+}
+.terms-block {
+    li {
+        margin: 0;
+        padding: 0;
+        display: block;
+        list-style-type: none;
+        float: left;
+        width: auto;
+    }
+    .tagsinput{
+        max-height: 50px;
+        margin-bottom: 10px;
+    }
+    .MathJax_Display {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    margin-top: 40px !important;
+    margin-bottom: 150px;
+    padding: 0;
+    list-style-type: none;
+    min-width: 100% !important;
+}
+.clear-both {
+    clear: both;
 }
