@@ -11,12 +11,18 @@ class Mccluskyfrontend.Views.Terms extends Backbone.View
   className: ''
 
   events: {
-    'click button.terms-next': 'postTerms'
+    'click a.terms-next': 'postTerms'
   }
   postTerms: ->
-    $.post('/terms', {1:1, 2:3}, ->
-        console.log "batee5"
-      )
+    minMax = $('.min-max-container input:checked').val()
+    terms = $('#terms_tagsinput .tag span').text().split("  ")
+    terms.splice(terms.length-1, 1)
+    cares = $('#cares_tagsinput .tag span').text().split("  ")
+    cares.splice(cares.length-1, 1)
+    numberOfBits = $('.number-of-bits').val()
+    $.ajax({url:'http://localhost:5000/terms', type:'POST', data:{'terms':terms, 'cares':cares, 'type': minMax, 'numberOfBits': numberOfBits}, success: (data)->
+        console.log(data)
+      })
   render: () ->
     @$el.html @template()
     $('#terms').tagsInput()
