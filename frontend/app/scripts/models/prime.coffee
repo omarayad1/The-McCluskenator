@@ -1,6 +1,6 @@
 'use strict';
 
-class Mccluskyfrontend.Models.Truthrow extends Backbone.Model
+class Mccluskyfrontend.Models.Prime extends Backbone.Model
   url: '',
 
   initialize: () ->

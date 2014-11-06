@@ -6,11 +6,12 @@ from modules.booleanFunctionGenerator import *
 from modules.maxTerms import *
 from modules.minTerms import *
 from modules.minimizationFunction import *
-from modules.primeImplicantFilter import *
+from modules.primeImplicants import get_prime_implicants
 from modules.truthTableGen import TruthTable
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
+truth_table = None
 def crossdomain(origin=None, methods=None, headers=None,
                 max_age=21600, attach_to_all=True,
                 automatic_options=True):
@@ -59,8 +60,20 @@ def rawa7():
 @crossdomain(origin='*')
 def getTruthTable():
 	json = request.form
+	global truth_table
 	truth_table = TruthTable(map(int,json.getlist('terms[]')),map(int,json.getlist("cares[]")),True if json["type"] == u"true" else False,int(json["numberOfBits"]))
 	return jsonify(truth_table.table)
 
+@app.route("/prime", methods=['GET'])
+@crossdomain(origin='*')
+def getPrimeImplicants():
+	items = []
+	for term, value in truth_table.table.iteritems():
+		if value or value is None:
+			items.append(str(bin(term)).replace('0b','').zfill(3))
+	primes = get_prime_implicants(items)
+	print primes
+	print items
+	return jsonify({'data': primes})
 if __name__ == "__main__":
     app.run()

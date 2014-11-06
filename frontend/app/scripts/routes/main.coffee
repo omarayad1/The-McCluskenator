@@ -21,6 +21,7 @@ router.on 'route:terms', ->
 	view.render()
 
 router.on 'route:truth', ->
-	view = new Mccluskyfrontend.Views.Truth
+	console.log(window.Mccluskyfrontend)
+	view = new Mccluskyfrontend.Views.Truth({'collection': Mccluskyfrontend.Data.toJSON()})
 	view.setElement '.backbone-container'
 	view.render()

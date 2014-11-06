@@ -13,5 +13,6 @@ class Mccluskyfrontend.Views.Truth extends Backbone.View
   events: {}
 
   render: () ->
-    @$el.html @template()
+    table = @collection
+    @$el.html @template({'collection': table})
     @
