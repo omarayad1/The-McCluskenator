@@ -21,7 +21,7 @@ class Mccluskyfrontend.Views.Terms extends Backbone.View
     cares.splice(cares.length-1, 1)
     numberOfBits = $('.number-of-bits').val()
     $.ajax({url:'http://localhost:5000/terms', type:'POST', data:{'terms':terms, 'cares':cares, 'type': minMax, 'numberOfBits': numberOfBits}, success: (data)->
-        console.log(data)
+        Mccluskyfrontend.Models.Truth = data
       })
   render: () ->
     @$el.html @template()

@@ -60,7 +60,6 @@ def rawa7():
 def getTruthTable():
 	json = request.form
 	truth_table = TruthTable(map(int,json.getlist('terms[]')),map(int,json.getlist("cares[]")),True if json["type"] == u"true" else False,int(json["numberOfBits"]))
-	
 	return jsonify(truth_table.table)
 
 if __name__ == "__main__":

@@ -5,6 +5,7 @@ Mccluskyfrontend.Routers.Main = Backbone.Router.extend(
 		'': 'start'
 		'start': 'start'
 		'terms': 'terms'
+		'truth': 'truth'
 	)
 
 router = new Mccluskyfrontend.Routers.Main()
@@ -16,5 +17,10 @@ router.on 'route:start', ->
 
 router.on 'route:terms', ->
 	view = new Mccluskyfrontend.Views.Terms
+	view.setElement '.backbone-container'
+	view.render()
+
+router.on 'route:truth', ->
+	view = new Mccluskyfrontend.Views.Truth
 	view.setElement '.backbone-container'
 	view.render()
