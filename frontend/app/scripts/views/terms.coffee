@@ -26,7 +26,7 @@ class Mccluskyfrontend.Views.Terms extends Backbone.View
           x = parseInt(term).toString(2)
           table.push(new Mccluskyfrontend.Models.Truthrow({'term':("00"+x).slice(-3), 'value': value}))
           window.Mccluskyfrontend.Data = new Mccluskyfrontend.Collections.Truthtable(table)
-          window.location.href = 'http://localhost:9000/#/truth'
+        window.location.href = 'http://localhost:9000/#/truth'
       })
   render: () ->
     @$el.html @template()

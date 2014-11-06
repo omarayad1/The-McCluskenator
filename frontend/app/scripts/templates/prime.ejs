@@ -1,2 +1,12 @@
-<p>Your content here.</p>
-
+<div class="jumbotron">
+	<h2>The Following is the generated Prime Implcants</h2>
+	<table class="table">
+	<% _.each(collection, function(model) { %>
+	<tr>
+		<td><%= model['term'] %></td>
+		<td><%= model['value'] == null ? 'X':model['value'] == true?1:0 %></td>
+	</tr>
+	<% }); %>
+	</table>
+	<p><a class="btn btn-lg btn-success terms-next" href="#/primeFiltered">Next</a></p>
+</div>

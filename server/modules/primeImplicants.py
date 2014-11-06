@@ -2,7 +2,7 @@ def combine(m, n):
     a = len(m)
     c = ''
     count = 0
-    for i in range(a): 
+    for i in xrange(a): 
         if(m[i] == n[i]):
             c += m[i]
         elif(m[i] != n[i]):
@@ -22,8 +22,8 @@ def get_prime_implicants(data):
     im2 = []
     mark = [0]*size
     m = 0
-    for i in range(size):
-        for j in range(i+1, size):
+    for i in xrange(size):
+        for j in xrange(i+1, size):
             c = combine( str(newList[i]), str(newList[j]) )
             if c != None:
                 im.append(str(c))
@@ -33,18 +33,18 @@ def get_prime_implicants(data):
                 continue
 
     mark2 = [0]*len(im)
-    for p in range(len(im)):
+    for p in xrange(len(im)):
         for n in range(p+1, len(im)):
             if( p != n and mark2[n] == 0):
                 if( im[p] == im[n]):
                     mark2[n] = 1
 
 
-    for r in range(len(im)):
+    for r in xrange(len(im)):
         if(mark2[r] == 0):
             im2.append(im[r])
 
-    for q in range(size):
+    for q in xrange(size):
         if( mark[q] == 0 ):
             IM.append( str(newList[q]) )
             m = m+1
