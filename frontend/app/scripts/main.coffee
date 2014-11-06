@@ -3,6 +3,7 @@ window.Mccluskyfrontend =
   Collections: {}
   Views: {}
   Routers: {}
+  Data: {}
   init: ->
     'use strict'
     console.log 'Hello from Backbone!'
