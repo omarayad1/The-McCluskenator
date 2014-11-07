@@ -6,6 +6,7 @@ Mccluskyfrontend.Routers.Main = Backbone.Router.extend(
 		'start': 'start'
 		'terms': 'terms'
 		'truth': 'truth'
+		'prime': 'prime'
 	)
 
 router = new Mccluskyfrontend.Routers.Main()
@@ -21,7 +22,11 @@ router.on 'route:terms', ->
 	view.render()
 
 router.on 'route:truth', ->
-	console.log(window.Mccluskyfrontend)
 	view = new Mccluskyfrontend.Views.Truth({'collection': Mccluskyfrontend.Data.toJSON()})
+	view.setElement '.backbone-container'
+	view.render()
+
+router.on 'route:prime', ->
+	view = new Mccluskyfrontend.Views.Prime({'collection': Mccluskyfrontend.PrimeImplicants.toJSON()})
 	view.setElement '.backbone-container'
 	view.render()

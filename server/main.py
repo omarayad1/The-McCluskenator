@@ -6,7 +6,7 @@ from modules.booleanFunctionGenerator import *
 from modules.maxTerms import *
 from modules.minTerms import *
 from modules.minimizationFunction import *
-from modules.primeImplicants import get_prime_implicants
+from modules.primeImplicants import PI
 from modules.truthTableGen import TruthTable
 
 app = Flask(__name__)
@@ -71,9 +71,7 @@ def getPrimeImplicants():
 	for term, value in truth_table.table.iteritems():
 		if value or value is None:
 			items.append(str(bin(term)).replace('0b','').zfill(3))
-	primes = get_prime_implicants(items)
-	print primes
-	print items
+	primes = PI(items)
 	return jsonify({'data': primes})
 if __name__ == "__main__":
     app.run()

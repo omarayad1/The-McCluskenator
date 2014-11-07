@@ -4,6 +4,7 @@ window.Mccluskyfrontend =
   Views: {}
   Routers: {}
   Data: {}
+  PrimeImplicants: {}
   init: ->
     'use strict'
     console.log 'Hello from Backbone!'

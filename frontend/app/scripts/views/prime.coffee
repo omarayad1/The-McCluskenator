@@ -11,9 +11,7 @@ class Mccluskyfrontend.Views.Prime extends Backbone.View
   className: ''
 
   events: {}
-
-  initialize: () ->
-    @listenTo @model, 'change', @render
-
   render: () ->
-    @$el.html @template(@model.toJSON())
+    implicants = @collection
+    @$el.html @template({'collection': implicants})
+    @

@@ -1,10 +1,14 @@
 <div class="jumbotron">
-	<h2>The Following is the generated Prime Implcants</h2>
+	<h2>The Following are the generated Prime Implcants</h2>
 	<table class="table">
 	<% _.each(collection, function(model) { %>
 	<tr>
-		<td><%= model['term'] %></td>
-		<td><%= model['value'] == null ? 'X':model['value'] == true?1:0 %></td>
+		<td><%= model['implicant'] %></td>
+		<td>
+			<% _.each(model['origin'], function(origin){ %>
+				<%= origin %>,
+			<% }); %>
+		</td>
 	</tr>
 	<% }); %>
 	</table>

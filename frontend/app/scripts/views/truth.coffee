@@ -22,11 +22,10 @@ class Mccluskyfrontend.Views.Truth extends Backbone.View
   			primes = data.data
   			primeTable = []
   			for prime in primes
-  				console.log(prime)
-  				primeTable.push(new Mccluskyfrontend.Models.Prime({'implicant': prime}))
-  			Mccluskyfrontend.PrimeImplicants = new Mccluskyfrontend.Collections.Primes(primeTable)
-  			console.log(Mccluskyfrontend.PrimeImplicants)
-  			window.location.href = 'http://localhost:9000/#/primeFiltered'
+  				primeTable.push(new Mccluskyfrontend.Models.Prime({'implicant': prime[0], 'origin': prime.slice(1,prime.length)}))
+  			console.log primeTable
+  			window.Mccluskyfrontend.PrimeImplicants = new Mccluskyfrontend.Collections.Primes(primeTable)
+  			window.location.href = 'http://localhost:9000/#/prime'
   		})
 
   render: () ->
