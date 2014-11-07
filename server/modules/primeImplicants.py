@@ -68,7 +68,7 @@ def perm(inp):
 			f = 1
 		else:
 			str1+= cur_char
-
+			
 	f = 0
 	for i in xrange(len(inp)):
 		cur_char=inp[i]
@@ -82,11 +82,13 @@ def perm(inp):
 	else:
 		return [str1,str2]
 
+
 def check(inp):
 	for i in range(len(inp)):
 		if '-' in inp[i]:
 			return i
 	return 'NONE'
+
 
 def iter(inp):
 	worklist = perm(inp)
@@ -108,7 +110,6 @@ def iter(inp):
 	return numlist
 
 
-
 def PI(data):
 	liist = list(get_prime_implicants(data))
 	finallist = []
@@ -117,6 +118,6 @@ def PI(data):
 		a = iter(liist[i])
 		finallist.append(a)
 
-	print finallist
+	return finallist
 
 
