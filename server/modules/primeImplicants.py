@@ -1,4 +1,4 @@
-from itertools import combinations
+
 
 def combine(m, n):
     a = len(m)
@@ -65,7 +65,7 @@ def perm(inp):
 		cur_char=inp[i]
 		if (cur_char == "-" and f == 0):
 			str1 += "1"
-			# f = 1
+			f = 1
 		else:
 			str1+= cur_char
 
@@ -74,7 +74,7 @@ def perm(inp):
 		cur_char=inp[i]
 		if (cur_char == "-" and f == 0):
 			str2 += "0"
-			# f = 1
+			f = 1
 		else:
 			str2+= cur_char
 	if (inp == str2 and inp == str1):
@@ -82,23 +82,40 @@ def perm(inp):
 	else:
 		return [str1,str2]
 
+def check(inp):
+	for i in range(len(inp)):
+		if '-' in inp[i]:
+			return i
+	return 'NONE'
+
+def iter(inp):
+	worklist = perm(inp)
+	numlist = []
+	chk = check(worklist)
+	while chk!='NONE':
+		a = perm(worklist[chk])
+		worklist.append(a[0])
+		worklist.append(a[1])
+		worklist.pop(chk)
+		chk = check(worklist)
+
+	for i in xrange(len(worklist)):
+		numlist.append(int(worklist[i],2))
+
+	numlist.append(inp)
+	numlist.reverse()
+
+	return numlist
+
 
 
 def PI(data):
 	liist = list(get_prime_implicants(data))
-	newlist1= [0]*len(liist)
-	newlist0= [0]*len(liist)
 	finallist = []
 
 	for i in xrange(len(liist)):
-		# while !('-' in a):
-		a = perm(liist[i])
-		newlist1[i]=int(a[0], 2)
-		newlist0[i]=int(a[1], 2)
-
-	for i in xrange(len(liist)):
-		bb = [liist[i],newlist0[i],newlist1[i]]
-		finallist.append(bb)
+		a = iter(liist[i])
+		finallist.append(a)
 
 	print finallist
 
