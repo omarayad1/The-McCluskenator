@@ -1,5 +1,3 @@
-
-
 def combine(m, n):
     a = len(m)
     c = ''
@@ -78,31 +76,37 @@ def perm(inp):
 		else:
 			str2+= cur_char
 	if (inp == str2 and inp == str1):
-		return 'NONE'
+		return None
 	else:
 		return [str1,str2]
 
 
 def check(inp):
+	if inp is None:
+		return None
 	for i in range(len(inp)):
 		if '-' in inp[i]:
 			return i
-	return 'NONE'
+	return None
 
 
 def iter(inp):
 	worklist = perm(inp)
 	numlist = []
 	chk = check(worklist)
-	while chk!='NONE':
+	while chk is not None:
 		a = perm(worklist[chk])
 		worklist.append(a[0])
 		worklist.append(a[1])
 		worklist.pop(chk)
 		chk = check(worklist)
+	
+	try:
+		for i in xrange(len(worklist)):
+			numlist.append(int(worklist[i],2))
+	except TypeError: 
+		pass
 
-	for i in xrange(len(worklist)):
-		numlist.append(int(worklist[i],2))
 
 	numlist.append(inp)
 	numlist.reverse()
@@ -120,4 +124,9 @@ def PI(data):
 
 	return finallist
 
-
+minterms2 = set(['1101', '1100', '1110', '1111', '1010', '0011', '0111', '0110'])
+minterms = set(['0000', '0101', '0110', '1001', '1010', '1101', '1110', '1111', '0111'])
+print get_prime_implicants(minterms2)
+print PI(minterms2)
+print get_prime_implicants(minterms)
+print PI(minterms)
