@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify, make_response, current_app
 from datetime import timedelta
 from functools import update_wrapper
-import json
-from modules.essentialPrimeImplicant import get_essential, dominating
+from copy import deepcopy
+from modules.essentialPrimeImplicant import get_essential, Dominating
 from modules.primeImplicants import PI
 from modules.truthTableGen import TruthTable
 
@@ -69,10 +69,10 @@ def getPrimeImplicants():
 	items = []
 	for term, value in truth_table.table.iteritems():
 		if value or value is None:
-			items.append(str(bin(term)).replace('0b','').zfill(3))
+			items.append(str(bin(term)).replace('0b','').zfill(truth_table.variableNumber))
 	global primes
 	primes = PI(items)
-	return jsonify({'data': primes})
+	return jsonify({'data': primes, 'number-of-bits': truth_table.variableNumber})
 
 @app.route("/essential", methods=['GET'])
 @crossdomain(origin='*')
@@ -81,12 +81,16 @@ def getEssentialPrimes():
 	minimized = {prime[0]: prime[1::] for prime in primes}
 	global terms
 	terms = truth_table.terms
-	return jsonify({'data': get_essential(minimized,terms)})
+	terms_for_essential = deepcopy(terms)
+	minimized_for_essential = deepcopy(minimized)
+	return jsonify({'data': get_essential(minimized_for_essential,terms_for_essential)})
 
 @app.route("/dominating", methods=['GET'])
 @crossdomain(origin='*')
 def getDominating():
-	return jsonify({'data': dominating(minimized, terms)})
+	minimized_for_dominating = deepcopy(minimized)
+	terms_for_dominating = deepcopy(terms)
+	return jsonify({'data': Dominating(minimized_for_dominating, terms_for_dominating)})
 
 if __name__ == "__main__":
-    app.run()
+	app.run()
