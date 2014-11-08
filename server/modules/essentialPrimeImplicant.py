@@ -53,3 +53,4 @@ def Dominating(implicant_dict,terms_list):
 		return list(set(result)) + Dominating(implicant_dict,terms_list)
 
 	return list(set(result))
+

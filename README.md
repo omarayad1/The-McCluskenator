@@ -1,5 +1,6 @@
 # Quine McClusky
-Quine McClusky algorithm implemented in Python(Flask) with tentative Web UI.
+Quine McClusky algorithm implemented in Python(Flask) with a Web UI made using Backbone and Bootstrap. 
+It also include A circuit drawing interface made using JointJS.
 
 ## Building and Running the Software
 
@@ -11,7 +12,8 @@ Quine McClusky algorithm implemented in Python(Flask) with tentative Web UI.
     * [Git](http://git-scm.com/downloads "Git Download")
     * [Python 2.7](https://www.python.org/download/releases/2.7/ "Python Download")
     * [pip](http://pip.readthedocs.org/en/latest/installing.html "pip Download")
-* Run the following. an output similar to this when you execute the following on your command line prompt
+    
+* Run the following. An output similar to this when you execute the following on your command line prompt
 ```bash
 $ node -v
 v0.10.33
@@ -70,7 +72,7 @@ $ sudo pip install nose
 $ nosetests
 ```
 
-## Contributers
+## Contributors
 
 <table>
 <tr><th>Name</th><th>Github</th></tr>
