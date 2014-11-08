@@ -1,0 +1,11 @@
+<div class="jumbotron">
+	<h2>Final Equation is</h2>
+	<table class="table">
+	<% _.each(collection, function(model) { %>
+	<tr>
+		<td><%= model['term'] %></td>
+	</tr>
+	<% }); %>
+	</table>
+	<p><a class="btn btn-lg btn-success dominating-next">Next</a></p>
+</div>

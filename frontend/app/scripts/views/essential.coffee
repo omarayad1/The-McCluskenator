@@ -17,9 +17,13 @@ class Mccluskyfrontend.Views.Essential extends Backbone.View
 	getDominating: ->
 		$.ajax({
 			url: 'http://localhost:5000/dominating'
-			type: 'POST'
+			type: 'GET'
 			success: (data) ->
-				console.log data
+				final = data.data
+				terms = []
+				for term in final
+					terms.push(new Mccluskyfrontend.Models.Dominating({'term': term}))
+				Mccluskyfrontend.PrimeDominate = new Mccluskyfrontend.Collections.Dominating(terms)
 				window.location.href='http://localhost:9000/#/dominating'
 			})
 	render: () ->
