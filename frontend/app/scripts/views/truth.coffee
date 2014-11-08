@@ -18,7 +18,6 @@ class Mccluskyfrontend.Views.Truth extends Backbone.View
   		url: 'http://localhost:5000/prime'
   		type: 'GET'
   		success: (data) ->
-  			console.log(data.data)
   			primes = data.data
   			primeTable = []
   			for prime in primes

@@ -5,6 +5,7 @@ window.Mccluskyfrontend =
   Routers: {}
   Data: {}
   PrimeImplicants: {}
+  PrimeEssential: {}
   init: ->
     'use strict'
     console.log 'Hello from Backbone!'

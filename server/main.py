@@ -2,16 +2,14 @@ from flask import Flask, request, jsonify, make_response, current_app
 from datetime import timedelta
 from functools import update_wrapper
 import json
-from modules.booleanFunctionGenerator import *
-from modules.maxTerms import *
-from modules.minTerms import *
-from modules.minimizationFunction import *
+from modules.essentialPrimeImplicant import get_essential
 from modules.primeImplicants import PI
 from modules.truthTableGen import TruthTable
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
 truth_table = None
+primes = None
 def crossdomain(origin=None, methods=None, headers=None,
                 max_age=21600, attach_to_all=True,
                 automatic_options=True):
@@ -52,6 +50,7 @@ def crossdomain(origin=None, methods=None, headers=None,
         f.provide_automatic_options = False
         return update_wrapper(wrapped_function, f)
     return decorator
+
 @app.route("/", methods=['POST', 'GET'])
 def rawa7():
     return "rawa7 le omak"
@@ -71,7 +70,16 @@ def getPrimeImplicants():
 	for term, value in truth_table.table.iteritems():
 		if value or value is None:
 			items.append(str(bin(term)).replace('0b','').zfill(3))
+	global primes
 	primes = PI(items)
 	return jsonify({'data': primes})
+
+@app.route("/essential", methods=['GET'])
+@crossdomain(origin='*')
+def getEssentialPrimes():
+	minimized = {prime[0]: prime[1::] for prime in primes}
+	terms = truth_table.terms
+	return jsonify({'data': get_essential(minimized,terms)})
+
 if __name__ == "__main__":
     app.run()
