@@ -8,6 +8,7 @@ Mccluskyfrontend.Routers.Main = Backbone.Router.extend(
 		'truth': 'truth'
 		'prime': 'prime'
 		'essential': 'essential'
+		'dominating': 'dominating'
 	)
 
 router = new Mccluskyfrontend.Routers.Main()

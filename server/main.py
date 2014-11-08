@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, make_response, current_app
 from datetime import timedelta
 from functools import update_wrapper
 import json
-from modules.essentialPrimeImplicant import get_essential
+from modules.essentialPrimeImplicant import get_essential, dominating
 from modules.primeImplicants import PI
 from modules.truthTableGen import TruthTable
 
@@ -77,9 +77,16 @@ def getPrimeImplicants():
 @app.route("/essential", methods=['GET'])
 @crossdomain(origin='*')
 def getEssentialPrimes():
+	global minimized
 	minimized = {prime[0]: prime[1::] for prime in primes}
+	global terms
 	terms = truth_table.terms
 	return jsonify({'data': get_essential(minimized,terms)})
+
+@app.route("/dominating", methods=['GET'])
+@crossdomain(origin='*')
+def getDominating():
+	return jsonify({'data': dominating(minimized, terms)})
 
 if __name__ == "__main__":
     app.run()

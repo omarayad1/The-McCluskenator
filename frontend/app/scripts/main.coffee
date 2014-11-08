@@ -6,6 +6,9 @@ window.Mccluskyfrontend =
   Data: {}
   PrimeImplicants: {}
   PrimeEssential: {}
+  PrimeDominate: {}
+  Answer: {}
+  
   init: ->
     'use strict'
     console.log 'Hello from Backbone!'
