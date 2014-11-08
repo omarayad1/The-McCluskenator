@@ -53,7 +53,3 @@ def Dominating(implicant_dict,terms_list):
 		return list(set(result)) + Dominating(implicant_dict,terms_list)
 
 	return list(set(result))
-
-
-print Dominating({'-100': [4,12], '10--':[8,9,10,11], '1--0':[8,10,12,14], '1-1-':[10,11,14,15]}, [4,8,10,11,12,15])
-print Dominating( {'0000': [0], '1-10':[10,14], '1-01':[9,13], '-11-':[6,7,14,15], '-1-1':[5,7,13,15]}, [0,5,6,7,9,10,13,14,15])

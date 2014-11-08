@@ -123,10 +123,3 @@ def PI(data):
 		finallist.append(a)
 
 	return finallist
-
-minterms2 = set(['1101', '1100', '1110', '1111', '1010', '0011', '0111', '0110'])
-minterms = set(['0000', '0101', '0110', '1001', '1010', '1101', '1110', '1111', '0111'])
-print get_prime_implicants(minterms2)
-print PI(minterms2)
-print get_prime_implicants(minterms)
-print PI(minterms)
