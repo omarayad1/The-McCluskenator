@@ -45,6 +45,7 @@ def Smallest(implicant_dict,value_ch): #Returns the key in implicant dict that h
 			maxx = cur
 			pntr = i
 
+	print pntr
 	return tmp[pntr]
 
 

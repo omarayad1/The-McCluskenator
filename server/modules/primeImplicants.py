@@ -107,7 +107,6 @@ def iter(inp):
 	except TypeError: 
 		pass
 
-
 	numlist.append(inp)
 	numlist.reverse()
 
@@ -121,5 +120,10 @@ def PI(data):
 	for i in xrange(len(liist)):
 		a = iter(liist[i])
 		finallist.append(a)
+
+	for i in xrange(len(finallist)):
+		if len(finallist[i]) == 1:
+			finallist[i].append(int(finallist[i][0],2))
+
 
 	return finallist
