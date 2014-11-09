@@ -57,6 +57,8 @@ $ bower install
 $ grunt serve
 ```
 * A new browser window will open with the frontend running. Don't interact with it yet
+* Frontend Working
+![Frontend Console](img/frontend.png)
 
 ### Building & Running the Backend
 
@@ -71,6 +73,17 @@ $ python main.py
 $ sudo pip install nose
 $ nosetests
 ```
+* Backend Console
+* ![Backend Console](img/server.png)
+## Screenshots
+![start](start.png)
+![terms](terms.png)
+![truth](truth.png)
+![prime](prime.png)
+![essential](essential.png)
+![dominating](dominating.png)
+![final](final.png)
+![circuit](circuit.png)
 
 ## Contributors
 
