@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, make_response, current_app
 from datetime import timedelta
 from functools import update_wrapper
 from copy import deepcopy
+from math import log, ceil
 from modules.essentialPrimeImplicant import get_essential, Dominating
 from modules.primeImplicants import PI
 from modules.truthTableGen import TruthTable
@@ -60,7 +61,8 @@ def rawa7():
 def getTruthTable():
 	json = request.form
 	global truth_table
-	truth_table = TruthTable(map(int,json.getlist('terms[]')),map(int,json.getlist("cares[]")),True if json["type"] == u"true" else False,int(json["numberOfBits"]))
+	number_of_bits = ceil(log(max(map(int,json.getlist('terms[]'))+map(int,json.getlist("cares[]"))) + 1)/log(2))
+	truth_table = TruthTable(map(int,json.getlist('terms[]')),map(int,json.getlist("cares[]")),True if json["type"] == u"true" else False,int(number_of_bits))
 	return jsonify(truth_table.table)
 
 @app.route("/prime", methods=['GET'])
