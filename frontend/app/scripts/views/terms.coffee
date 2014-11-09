@@ -21,12 +21,17 @@ class Mccluskyfrontend.Views.Terms extends Backbone.View
     cares.splice(cares.length-1, 1)
     numberOfBits = $('.number-of-bits').val()
     $.ajax({url:'http://localhost:5000/terms', type:'POST', data:{'terms':terms, 'cares':cares, 'type': minMax, 'numberOfBits': numberOfBits}, success: (data)->
-        table = []
-        for term, value of data
-          x = parseInt(term).toString(2)
-          table.push(new Mccluskyfrontend.Models.Truthrow({'term':("0000000000000000"+x).slice(parseInt(data['number-of-bits'])*-1), 'value': value}))
-          window.Mccluskyfrontend.Data = new Mccluskyfrontend.Collections.Truthtable(table)
-        window.location.href = 'http://localhost:9000/#/truth'
+        if not data.err
+          delete data.err
+          table = []
+          for term, value of data
+            x = parseInt(term).toString(2)
+            table.push(new Mccluskyfrontend.Models.Truthrow({'term':("0000000000000000"+x).slice(parseInt(data['number-of-bits'])*-1), 'value': value}))
+            window.Mccluskyfrontend.Data = new Mccluskyfrontend.Collections.Truthtable(table)
+          window.location.href = 'http://localhost:9000/#/truth'
+        else
+          window.location.href = 'http://localhost:9000/#/error'
+
       })
   render: () ->
     @$el.html @template()

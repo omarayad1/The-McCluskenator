@@ -10,6 +10,8 @@ Mccluskyfrontend.Routers.Main = Backbone.Router.extend(
 		'essential': 'essential'
 		'dominating': 'dominating'
 		'final': 'final'
+		'circuit': 'circuit'
+		'error': 'error'
 	)
 
 router = new Mccluskyfrontend.Routers.Main()
@@ -46,5 +48,15 @@ router.on 'route:dominating', ->
 
 router.on 'route:final', ->
 	view = new Mccluskyfrontend.Views.Final({'collection': Mccluskyfrontend.PrimeDominate.toJSON()})
+	view.setElement '.backbone-container'
+	view.render()
+
+router.on 'route:circuit', ->
+	view = new Mccluskyfrontend.Views.Circuit({'collection': Mccluskyfrontend.PrimeDominate.toJSON()})
+	view.setElement '.backbone-container'
+	view.render()
+
+router.on 'route:error', ->
+	view = new Mccluskyfrontend.Views.Error
 	view.setElement '.backbone-container'
 	view.render()

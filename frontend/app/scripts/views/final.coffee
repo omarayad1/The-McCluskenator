@@ -10,8 +10,11 @@ class Mccluskyfrontend.Views.Final extends Backbone.View
 
   className: ''
 
-  events: {}
-
+  events: {
+  	'click a.final-next': 'getCircuit'
+  }
+  getCircuit: ->
+  	window.location.href = 'http://localhost:9000/#/circuit'
   render: () ->
     batee5 = @collection
     @$el.html @template({'collection': batee5})
