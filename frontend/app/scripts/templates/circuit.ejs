@@ -83,17 +83,19 @@ var input = 1;
 var inputor = 1
 var gates = {};
 var wires = [];
-var arr = ['0-1','01-'];
+var arr = Mccluskyfrontend.PrimeDominate.toJSON();
 gates['or'] = new joint.shapes.logic.Or({ position: {x:500,y:300}})
+gates['output'] = new joint.shapes.logic.Output({position: {x:600,y:300}})
+wires.push({source: {id: gates['or']['id'], port: 'out'}, target: {id: gates['output']['id'], port: 'in'}})
 for (var i = 0; i<arr.length; i++) {
 	gates['and_' + i.toString()] = new joint.shapes.logic.And({ position: {x:(currx+200),y:(andy)}})
 	wires.push({source: {id: gates['and_' + i.toString()]['id'], port: 'out'}, target: {id: gates['or']['id'], port: 'in' + inputor.toString()}})
-	for (var j = 0; j<arr[i].length; j++) {
-		if (arr[i][j] === '1') {
+	for (var j = 0; j<arr[i]['term'].length; j++) {
+		if (arr[i]['term'][j] === '1') {
 			gates['input_' + i.toString() + '_' + j.toString()] = new joint.shapes.logic.Input({position: {x:currx,y:curry}});
 			wires.push({source: {id: gates['input_' + i.toString() + '_' + j.toString()]['id'], port: 'out'}, target: {id: gates['and_' + i.toString()]['id'], port: 'in' + input.toString()}});
 			input += 1
-		} else if (arr[i][j] === '0') {
+		} else if (arr[i]['term'][j] === '0') {
 			gates['input_' + i.toString() + '_' + j.toString()] = new joint.shapes.logic.Input({position: {x:currx,y:curry}});
 			gates['not_' + i.toString() + '_' + j.toString()] = new joint.shapes.logic.Not({position: {x:currx+100,y:curry}});
 			wires.push({'source': {'id': gates['input_' + i.toString() + '_' + j.toString()]['id'], 'port': 'out'}, 'target': {id: gates['not_' + i.toString() + '_' + j.toString()]['id'], port: 'in'}});
