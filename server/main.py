@@ -53,8 +53,8 @@ def crossdomain(origin=None, methods=None, headers=None,
     return decorator
 
 @app.route("/", methods=['POST', 'GET'])
-def rawa7():
-    return "rawa7 le omak"
+def nothing():
+    return "nothing here"
 
 @app.route("/terms", methods=['POST'])
 @crossdomain(origin='*')
