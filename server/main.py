@@ -61,8 +61,7 @@ def nothing():
 def getTruthTable():
 	json = request.form
 	global truth_table
-	number_of_bits = ceil(log(max(map(int,json.getlist('terms[]'))+map(int,json.getlist("cares[]"))) + 1)/log(2))
-	truth_table = TruthTable(map(int,json.getlist('terms[]')),map(int,json.getlist("cares[]")),True if json["type"] == u"true" else False,int(number_of_bits))
+	truth_table = TruthTable(map(int,json.getlist('terms[]')),map(int,json.getlist("cares[]")),True if json["type"] == u"true" else False,int(json["numberOfBits"]))
 	return jsonify(truth_table.table)
 
 @app.route("/prime", methods=['GET'])

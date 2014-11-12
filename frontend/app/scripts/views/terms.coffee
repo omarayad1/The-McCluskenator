@@ -33,7 +33,8 @@ class Mccluskyfrontend.Views.Terms extends Backbone.View
     terms.splice(terms.length-1, 1)
     cares = $('#cares_tagsinput .tag span').text().split("  ")
     cares.splice(cares.length-1, 1)
-    $.ajax({url:'http://localhost:5000/terms', type:'POST', data:{'terms':terms, 'cares':cares, 'type': minMax}, success: (data)->
+    numberOfBits = $('.number-of-bits').val()
+    $.ajax({url:'http://localhost:5000/terms', type:'POST', data:{'terms':terms, 'cares':cares, 'type': minMax, 'numberOfBits': numberOfBits}, success: (data)->
         if not data.err
           delete data.err
           table = []
