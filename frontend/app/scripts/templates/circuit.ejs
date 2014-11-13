@@ -1,6 +1,14 @@
 <div id='paper'></div>
 <script>
 
+var arr2 = Mccluskyfrontend.PrimeDominate.toJSON();
+if (arr2[0].term == '1')
+{
+    $('#paper').html("<h1 style = 'text-align:center;color:#FFF'> No Circuit Needed, Always 1</h1>")
+}
+else
+{
+
 var graph = new joint.dia.Graph;
 
 var paper = new joint.dia.Paper({
@@ -178,4 +186,5 @@ graph.on('change:signal', function(wire, signal) {
 
 // initialize signal and keep its value
 var current = initializeSignal();
+}
 </script>

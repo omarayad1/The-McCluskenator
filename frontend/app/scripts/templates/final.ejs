@@ -3,12 +3,15 @@
 	<div id='final-eq'>
 	$$
 	<% for (var j = 0; j<collection.length; j++){ %>
-		<% for (var i = 0; i<collection[j]['term'].length; i++) { %>
-			<% if(collection[j]['term'][i] == '1') { %> <%= String.fromCharCode(i+65) %> <% } else if (collection[j]['term'][i] == '0') { %> 
-			\overline{<%= String.fromCharCode(i+65) %> }<% } %>
+		<% if (collection[j]['term'] == '1') { %>
+			1
+			<% break; } else %>
+			<% for (var i = 0; i<collection[j]['term'].length; i++) { %>
+				<% if(collection[j]['term'][i] == '1') { %> <%= String.fromCharCode(i+65) %> <% } else if (collection[j]['term'][i] == '0') { %> 
+				\overline{<%= String.fromCharCode(i+65) %> }<% } %>
+			<% } %>
+			<% if (j!=((collection.length)-1)) { %>+<% } %>
 		<% } %>
-		<% if (j!=((collection.length)-1)) { %>+<% } %>
-	<% } %>
 	$$
 	</div>
 	<p><a class="btn btn-lg btn-success final-next">Next</a></p>

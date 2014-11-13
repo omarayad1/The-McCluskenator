@@ -98,4 +98,11 @@ def Dominating(implicant_dict,terms_list):
 	# if terms_list != []:
 		# return list(set(result)) + Dominating(implicant_dict,terms_list)
 
-	return list(set(result))
+	a = list(set(result))
+
+	for b in a:
+		if len(set(b)) == 1 and set(b) == set(['-']):
+			return '1'
+
+
+	return a
