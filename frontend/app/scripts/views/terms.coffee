@@ -16,7 +16,7 @@ class Mccluskyfrontend.Views.Terms extends Backbone.View
   }
   getPrime: ->
     $.ajax({
-      url: 'http://localhost:5000/prime'
+      url: 'http://mcclusky.herokuapp.com/prime'
       type: 'GET'
       success: (data) ->
         primes = data.data
@@ -25,7 +25,7 @@ class Mccluskyfrontend.Views.Terms extends Backbone.View
           primeTable.push(new Mccluskyfrontend.Models.Prime({'implicant': prime[0], 'origin': prime.slice(1,prime.length)}))
         console.log primeTable
         window.Mccluskyfrontend.PrimeImplicants = new Mccluskyfrontend.Collections.Primes(primeTable)
-        window.location.href = 'http://localhost:9000/#/prime'
+        Backbone.history.navigate('prime', {trigger: true})
       })
   postTerms: ->
     minMax = $('.min-max-container input:checked').val()
@@ -34,17 +34,18 @@ class Mccluskyfrontend.Views.Terms extends Backbone.View
     cares = $('#cares_tagsinput .tag span').text().split("  ")
     cares.splice(cares.length-1, 1)
     numberOfBits = $('.number-of-bits').val()
-    $.ajax({url:'http://localhost:5000/terms', type:'POST', data:{'terms':terms, 'cares':cares, 'type': minMax, 'numberOfBits': numberOfBits}, success: (data)->
-        if not data.err
-          delete data.err
+    $.ajax({url:'http://mcclusky.herokuapp.com/terms', type:'POST', data:{'terms':terms, 'cares':cares, 'type': minMax, 'numberOfBits': numberOfBits}, success: (data)->
+        window.Mccluskyfrontend.Token = data.token
+        if not data.table.err
+          delete data.table.err
           table = []
-          for term, value of data
+          for term, value of data.table
             x = parseInt(term).toString(2)
             table.push(new Mccluskyfrontend.Models.Truthrow({'term':("0000000000000000"+x).slice(parseInt(data['number-of-bits'])*-1), 'value': value}))
             window.Mccluskyfrontend.Data = new Mccluskyfrontend.Collections.Truthtable(table)
-          window.location.href = 'http://localhost:9000/#/truth'
+          Backbone.history.navigate('truth', {trigger: true})
         else
-          window.location.href = 'http://localhost:9000/#/error'
+          Backbone.history.navigate('error', {trigger: true})
 
       })
   postSkip: ->
@@ -54,11 +55,13 @@ class Mccluskyfrontend.Views.Terms extends Backbone.View
     cares = $('#cares_tagsinput .tag span').text().split("  ")
     cares.splice(cares.length-1, 1)
     numberOfBits = $('.number-of-bits').val()
-    $.ajax({url:'http://localhost:5000/terms', type:'POST', data:{'terms':terms, 'cares':cares, 'type': minMax, 'numberOfBits': numberOfBits}, success: (data)->
-        if not data.err
+    $.ajax({url:'http://mcclusky.herokuapp.com/terms', type:'POST', data:{'terms':terms, 'cares':cares, 'type': minMax, 'numberOfBits': numberOfBits}, success: (data)->
+        if not data.table.err
+          window.Mccluskyfrontend.Token = data.token
           $.ajax({
-            url: 'http://localhost:5000/prime'
-            type: 'GET'
+            url: 'http://mcclusky.herokuapp.com/prime'
+            type: 'POST'
+            data: {token: Mccluskyfrontend.Token}
             success: (data) ->
               primes = data.data
               primeTable = []
@@ -66,10 +69,10 @@ class Mccluskyfrontend.Views.Terms extends Backbone.View
                 primeTable.push(new Mccluskyfrontend.Models.Prime({'implicant': prime[0], 'origin': prime.slice(1,prime.length)}))
               console.log primeTable
               window.Mccluskyfrontend.PrimeImplicants = new Mccluskyfrontend.Collections.Primes(primeTable)
-              window.location.href = 'http://localhost:9000/#/prime'
+              Backbone.history.navigate('prime', {trigger: true})
             })
         else
-          window.location.href = 'http://localhost:9000/#/error'
+          Backbone.history.navigate('error', {trigger: true})
 
       })
   render: () ->

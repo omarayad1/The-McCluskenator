@@ -15,14 +15,15 @@ class Mccluskyfrontend.Views.Prime extends Backbone.View
 	}
 	getEssential: ->
 		$.ajax({
-			url: 'http://localhost:5000/essential'
-			type: 'GET'
+			url: 'http://mcclusky.herokuapp.com/essential'
+			type: 'POST'
+			data: {token: Mccluskyfrontend.Token}
 			success: (data) ->
 				table = []
 				for implicant in data.data
 					table.push(new Mccluskyfrontend.Models.Essential({'term': implicant[0], 'origin':implicant[1]}))
 				window.Mccluskyfrontend.PrimeEssential = new Mccluskyfrontend.Collections.Essential(table)
-				window.location.href = 'http://localhost:9000/#/essential'
+				Backbone.history.navigate('essential', {trigger: true})
 			})
 	render: () ->
 		implicants = @collection

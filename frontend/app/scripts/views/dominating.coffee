@@ -14,7 +14,7 @@ class Mccluskyfrontend.Views.Dominating extends Backbone.View
     'click a.dominating-next': 'getFinal'
   }
   getFinal: ->
-  	window.location.href = 'http://localhost:9000/#/final'
+  	Backbone.history.navigate('final', {trigger: true})
   render: () ->
     implicants = @collection
     @$el.html @template({'collection': implicants})

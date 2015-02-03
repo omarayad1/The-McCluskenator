@@ -6,11 +6,15 @@ from math import log, ceil
 from modules.essentialPrimeImplicant import get_essential, Dominating
 from modules.primeImplicants import PI
 from modules.truthTableGen import TruthTable
+from os import environ
+import os
+import hashlib
+import redis
+import pickle
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
-truth_table = None
-primes = None
+
 def crossdomain(origin=None, methods=None, headers=None,
                 max_age=21600, attach_to_all=True,
                 automatic_options=True):
@@ -59,39 +63,79 @@ def nothing():
 @app.route("/terms", methods=['POST'])
 @crossdomain(origin='*')
 def getTruthTable():
-	json = request.form
-	global truth_table
-	truth_table = TruthTable(map(int,json.getlist('terms[]')),map(int,json.getlist("cares[]")),True if json["type"] == u"true" else False,int(json["numberOfBits"]))
-	return jsonify(truth_table.table)
+    redisconn = redis.Redis(
+        host=environ['REDIS_HOST'], 
+        port=environ['REDIS_PORT'], 
+        password=environ['REDIS_PASSWORD']
+        )
+    json = request.form
+    truth_table = TruthTable(
+        map(int,json.getlist('terms[]')),
+        map(int,json.getlist("cares[]")),
+        True if json["type"] == u"true" else False,
+        int(json["numberOfBits"])
+        )
+    token = hashlib.sha1(os.urandom(128)).hexdigest()
+    redisconn.setex(token, pickle.dumps(truth_table), 3600)
+    return jsonify({'table': truth_table.table, 'token': token})
 
-@app.route("/prime", methods=['GET'])
+@app.route("/prime", methods=['POST'])
 @crossdomain(origin='*')
 def getPrimeImplicants():
-	items = []
-	for term, value in truth_table.table.iteritems():
-		if value or value is None:
-			items.append(str(bin(term)).replace('0b','').zfill(truth_table.variableNumber))
-	global primes
-	primes = PI(items)
-	return jsonify({'data': primes, 'number-of-bits': truth_table.variableNumber})
+    redisconn = redis.Redis(
+        host=environ['REDIS_HOST'], 
+        port=environ['REDIS_PORT'], 
+        password=environ['REDIS_PASSWORD']
+        )
+    items = []
+    truth_table = pickle.loads(
+        redisconn.get(
+            request.form['token']
+            )
+        )
+    for term, value in truth_table.table.iteritems():
+        if value or value is None:
+            items.append(str(bin(term)).replace('0b','').zfill(truth_table.variableNumber))
+    truth_table.primes = PI(items)
+    redisconn.setex(request.form['token'], pickle.dumps(truth_table), 3600)
+    return jsonify({'data': truth_table.primes, 'number-of-bits': truth_table.variableNumber})
 
-@app.route("/essential", methods=['GET'])
+@app.route("/essential", methods=['POST'])
 @crossdomain(origin='*')
 def getEssentialPrimes():
-	global minimized
-	minimized = {prime[0]: prime[1::] for prime in primes}
-	global terms
-	terms = truth_table.terms
-	terms_for_essential = deepcopy(terms)
-	minimized_for_essential = deepcopy(minimized)
-	return jsonify({'data': get_essential(minimized_for_essential,terms_for_essential)})
+    redisconn = redis.Redis(
+        host=environ['REDIS_HOST'], 
+        port=environ['REDIS_PORT'], 
+        password=environ['REDIS_PASSWORD']
+        )
+    truth_table = pickle.loads(
+        redisconn.get(
+            request.form['token']
+            )
+        )
+    truth_table.minimized = {prime[0]: prime[1::] for prime in truth_table.primes}
+    terms = truth_table.terms
+    terms_for_essential = deepcopy(terms)
+    minimized_for_essential = deepcopy(truth_table.minimized)
+    redisconn.setex(request.form['token'], pickle.dumps(truth_table), 3600)
+    return jsonify({'data': get_essential(minimized_for_essential,terms_for_essential)})
 
-@app.route("/dominating", methods=['GET'])
+@app.route("/dominating", methods=['POST'])
 @crossdomain(origin='*')
 def getDominating():
-	minimized_for_dominating = deepcopy(minimized)
-	terms_for_dominating = deepcopy(terms)
-	return jsonify({'data': Dominating(minimized_for_dominating, terms_for_dominating)})
+    redisconn = redis.Redis(
+        host=environ['REDIS_HOST'], 
+        port=environ['REDIS_PORT'], 
+        password=environ['REDIS_PASSWORD']
+        )
+    truth_table = pickle.loads(
+        redisconn.get(
+            request.form['token']
+            )
+        )
+    minimized_for_dominating = deepcopy(truth_table.minimized)
+    terms_for_dominating = deepcopy(truth_table.terms)
+    return jsonify({'data': Dominating(minimized_for_dominating, terms_for_dominating)})
 
 if __name__ == "__main__":
-	app.run()
+    app.run()

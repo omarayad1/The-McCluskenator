@@ -14,7 +14,7 @@ class Mccluskyfrontend.Views.Final extends Backbone.View
   	'click a.final-next': 'getCircuit'
   }
   getCircuit: ->
-  	window.location.href = 'http://localhost:9000/#/circuit'
+  	Backbone.history.navigate('circuit', {trigger: true})
   render: () ->
     batee5 = @collection
     @$el.html @template({'collection': batee5})

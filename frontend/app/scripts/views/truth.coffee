@@ -11,21 +11,22 @@ class Mccluskyfrontend.Views.Truth extends Backbone.View
   className: ''
 
   events: {
-  	'click a.truth-next': 'getPrime'
+    'click a.truth-next': 'getPrime'
   }
   getPrime: ->
-  	$.ajax({
-  		url: 'http://localhost:5000/prime'
-  		type: 'GET'
-  		success: (data) ->
-  			primes = data.data
-  			primeTable = []
-  			for prime in primes
-  				primeTable.push(new Mccluskyfrontend.Models.Prime({'implicant': prime[0], 'origin': prime.slice(1,prime.length)}))
-  			console.log primeTable
-  			window.Mccluskyfrontend.PrimeImplicants = new Mccluskyfrontend.Collections.Primes(primeTable)
-  			window.location.href = 'http://localhost:9000/#/prime'
-  		})
+    $.ajax({
+      url: 'http://mcclusky.herokuapp.com/prime'
+      type: 'POST'
+      data: {token: Mccluskyfrontend.Token}
+      success: (data) ->
+        primes = data.data
+        primeTable = []
+        for prime in primes
+          primeTable.push(new Mccluskyfrontend.Models.Prime({'implicant': prime[0], 'origin': prime.slice(1,prime.length)}))
+        console.log primeTable
+        window.Mccluskyfrontend.PrimeImplicants = new Mccluskyfrontend.Collections.Primes(primeTable)
+        Backbone.history.navigate('prime', {trigger: true})
+      })
 
   render: () ->
     table = @collection
